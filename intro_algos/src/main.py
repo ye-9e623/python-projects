@@ -1,10 +1,39 @@
 import numpy as np
 from sets import DirectAccessArray, HashTable
+from trees import BinaryTree
 from lnkdlst import LinkedList
 from sorts import mergesort_v1, quicksort, selectsort
 from srchs import binary_search
 
 def main():
+
+
+    ####################################
+    # Binary Tree Set Interface
+    ####################################
+    print('***** Implementation of Binary Tree for set')
+    BinaryTree.validate()
+    #import sys; sys.exit()
+
+    ####################################
+    # Direct Access Array Set Interface
+    ####################################
+    print('***** Implementation of Direct Access Array for set')
+    DirectAccessArray.validate()
+
+
+    ####################################
+    # Hash Table Set Interface
+    # Uses LinkedList for collisions
+    ####################################
+    print('***** Implementation of Hash Table for set')
+    HashTable.validate()
+    import sys;
+    sys.exit()
+
+
+
+
     ####################################
     # Binary Search
     ####################################
@@ -18,19 +47,6 @@ def main():
     val = max(data) + 1
     indx = binary_search(data, val, debug_flg=False)
 
-    ####################################
-    # Hash Table Set Interface
-    # Uses LinkedList for collisions
-    ####################################
-    print('***** Implementation of Hash Table for set')
-    HashTable.run()
-    import sys; sys.exit()
-
-    ####################################
-    # Direct Access Array Set Interface
-    ####################################
-    print('***** Implementation of Direct Access Array for set')
-    DirectAccessArray.run()
 
     ####################################
     # Merge sort

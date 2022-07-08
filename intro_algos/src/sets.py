@@ -1,7 +1,7 @@
 import numpy as np
 import string
 from lnkdlst import LinkedList
-
+from abc import ABC, abstractmethod
 np.random.seed(0)
 
 
@@ -15,8 +15,57 @@ class Item():
     def __str__(self):
         return f'Item(key={self.key}, val={self.val})'
 
+def custom_next(iterator):
+    ''' Return None at end of iteration '''
+    try:
+        curr_obj = next(iterator)
+        return curr_obj
+    except:
+        return None
 
-class DirectAccessArray():
+class SetInterface(ABC):
+    def __init__(self):
+        return
+
+    @abstractmethod
+    def __str__(self):
+        return
+
+    @abstractmethod
+    def find(self, key):
+        return
+
+    @abstractmethod
+    def insert(self, item):
+        return
+
+    @abstractmethod
+    def delete(self, key):
+        return
+
+    @abstractmethod
+    def find_min(self):
+        return
+
+    @abstractmethod
+    def find_max(self):
+        return
+
+    @abstractmethod
+    def find_prev(self, key):
+        return
+
+    @abstractmethod
+    def find_next(self, key):
+        return
+
+    @staticmethod
+    @abstractmethod
+    def validate():
+        return
+
+
+class DirectAccessArray(SetInterface):
     ''' Direct Access Array implementation for Set '''
 
     def __init__(self, items: zip, array_size: int):
@@ -25,10 +74,14 @@ class DirectAccessArray():
         self.array_size = array_size  # Size of array
         # Initial direct access set using tuple because it is immutable
         self.set = [None] * array_size
+        self.num_items = 0
         # Build direct access set with items, O(n)
-        for item in items:
+        item = custom_next(items)
+        while item is not None:
             print(item, end=" ")
             self.set[item.key] = item
+            self.num_items += 1
+            item = custom_next(items)
         print('\n', self)
 
     def __str__(self):
@@ -49,12 +102,14 @@ class DirectAccessArray():
     def insert(self, item):
         # O(1)
         # keys must be unique, will replace value if key already exists
+        self.num_items += 1
         self.set[item.key] = item
 
     def delete(self, key):
         # O(1)
         item = self.set[key]
         self.set[key] = None
+        self.num_items -= 1
         return item
 
     def find_min(self):
@@ -99,8 +154,7 @@ class DirectAccessArray():
             i += 1
         return None
 
-    @staticmethod
-    def run():
+    def validate():
         # Get random integer keys
         max_key = 100
         num_items = 10
@@ -110,7 +164,7 @@ class DirectAccessArray():
         print('key data', key_data, '\nval_data', val_data)
         # Create item list
         items = [Item(k, v) for k, v in zip(key_data, val_data)]
-        direct_access_set = DirectAccessArray(items, 2 * max_key)
+        direct_access_set = DirectAccessArray(iter(items), 2 * max_key)
         # find key
         key = key_data[2]
         item = direct_access_set.find(key)
@@ -152,18 +206,21 @@ def division_hash(key: int, base: int) -> int:
     Divison hash function '''
     return key % base
 
-class HashTable():
+class HashTable(SetInterface):
     def __init__(self, items: zip, array_size: int):
         # Iterate through elements until the end, default
         # Build hash table
         self.array_size = array_size  # Size of array
         # Initialize hashtable set using tuple because it is immutable
         self.set = [None] * self.array_size
-        self.num_items = len(items)
+        self.num_items = 0
 
         # Build hash table set with items, O(n)
-        for item in items:
+        item = custom_next(items)
+        while item is not None:
             self.insert(item)
+            self.num_items += 1
+            item = custom_next(items)
         print(self)
 
     def get_fill_prcnt(self):
@@ -219,6 +276,7 @@ class HashTable():
         else:
             # else add item to the index hash key
             self.set[hash_key] = item
+        self.num_items += 1
 
     def delete(self, key):
         # O(1)
@@ -274,7 +332,7 @@ class HashTable():
         return None
 
     @staticmethod
-    def run():
+    def validate():
         # Get random integer keys
         max_key = 10000
         num_items = 50
@@ -285,7 +343,7 @@ class HashTable():
         # Create item list
         items = [Item(k, v) for k, v in zip(key_data, val_data)]
         array_size = 30
-        hash_table = HashTable(items, array_size)
+        hash_table = HashTable(iter(items), array_size)
         # Get fill prcnt
         hash_table.get_fill_prcnt()
         # find key
