@@ -1,6 +1,6 @@
 import numpy as np
 from sets import DirectAccessArray, HashTable
-from trees import BinaryTree
+from trees import Set_Binary_Tree
 from lnkdlst import LinkedList
 from sorts import mergesort_v1, quicksort, selectsort
 from srchs import binary_search
@@ -12,7 +12,7 @@ def main():
     # Binary Tree Set Interface
     ####################################
     print('***** Implementation of Binary Tree for set')
-    BinaryTree.validate()
+    Set_Binary_Tree.validate()
     #import sys; sys.exit()
 
     ####################################
