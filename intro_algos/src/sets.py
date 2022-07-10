@@ -1,6 +1,6 @@
 import numpy as np
 import string
-from lnkdlst import LinkedList
+from seqncs import LinkedList
 from abc import ABC, abstractmethod
 np.random.seed(0)
 

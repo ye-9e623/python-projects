@@ -2,7 +2,7 @@ import numpy as np
 from graphs import Graph
 from sets import DirectAccessArray, HashTable
 from trees import Set_Binary_Tree
-from lnkdlst import LinkedList
+from seqncs import LinkedList
 from sorts import mergesort_v1, quicksort, selectsort
 from srchs import binary_search
 
