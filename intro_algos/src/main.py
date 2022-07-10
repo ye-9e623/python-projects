@@ -1,4 +1,5 @@
 import numpy as np
+from graphs import Graph
 from sets import DirectAccessArray, HashTable
 from trees import Set_Binary_Tree
 from lnkdlst import LinkedList
@@ -6,7 +7,12 @@ from sorts import mergesort_v1, quicksort, selectsort
 from srchs import binary_search
 
 def main():
-
+    ####################################
+    # Binary Tree Set Interface
+    ####################################
+    print('***** Implementation of Graphs, BFS, DFS')
+    Graph.validate()
+    import sys; sys.exit()
 
     ####################################
     # Binary Tree Set Interface
